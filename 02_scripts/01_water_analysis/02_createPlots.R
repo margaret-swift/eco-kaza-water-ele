@@ -83,7 +83,7 @@ ggsave(p.fill.siz,
 # ******************************************************************************
 
 # prep data
-sdat = stats %>% st_drop_geometry() %>%
+sdat = stats %>% 
   group_by(TYPE, PERIOD, YEAR) %>% 
   summarize(cover_mu = mean(COVER_P, na.rm=TRUE), 
             cover_sd = sd(COVER_P, na.rm=TRUE), 

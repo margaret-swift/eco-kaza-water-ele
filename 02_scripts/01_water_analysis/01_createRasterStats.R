@@ -123,7 +123,8 @@ for (f in files) {
 stats <- rbind(hdata, sizdata) %>% 
   group_by(ID) %>% 
   left_join(mar_m, by=c("ID", "YEAR")) %>% 
-  left_join(hydro_shp |> select(ID, geometry), by="ID") |> 
+  # left_join(hydro_shp |> select(ID, geometry), by="ID") |> 
+  # st_as_sf() |> 
   mutate(
     # coverage
     ESW_SIZE_M2 = ESW_NPIX * PX_AREA,
@@ -141,8 +142,7 @@ stats <- rbind(hdata, sizdata) %>%
     ID = factor(ID)
   ) %>% 
   # remove hydrosheds with max fill less than 1000 pixels
-  filter(MWF_SIZE_M2 > 1000) %>% 
-  st_as_sf()
+  filter(MWF_SIZE_M2 > 1000)
   
 # ******************************************************************************
 #  SAVE ALL DATA
