@@ -1,0 +1,15 @@
+Data location,/01_data/surfacewater/raw/ESW_sizes_HY,,
+Data description,Sizes of Ephemeral Surface Water datasets for all Hydrosheds,,
+,,,
+Column Name,Description,Unit,Example
+system:index,,,00000000000000000a5f
+END,Ending month for period,month,MAY
+ESW_NPIX,# pixels within ESW,count,375581
+ID,Hydroshed ID,,1061469810
+MWF_NPIX,# pixels within MWF,count,3765432
+PX_AREA,Area covered by one pixel (m),meters,9.554628535647032
+START,Starting month for period,month,FEB
+SUFFIX,Data name,[empty],
+URL,Google Cloud Storage location,,gs://kaza_esw_2026/ESW_1061469810_2019_FEB_MAY.tif
+YEAR,Year of ESW,year,2019
+.geo,multipoint coordinate data from GEE,,"{""type"":""MultiPoint"",""coordinates"":[]}"
