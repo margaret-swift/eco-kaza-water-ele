@@ -1,0 +1,15 @@
+"","INDEXNAME","REGION","DRY_WATER","DRY_NOTWATER","WET_WATER","WET_NOTWATER"
+"1","ESW","A_Kalala",94,100,82,100
+"2","ESW","B_Kwando",61,99,87,98
+"3","ESW","C_Okavango",97,98,98,86
+"4","ESW","D_Chobe",97,100,97,100
+"5","ESW","E_Zambezi",82,99,99,84
+"6","ESW","F_Ngamiland",0,100,87,100
+"7","ESW","G_Makgadikgadi",0,100,95,97
+"8","ESWNoMWF","A_Kalala",97,100,74,100
+"9","ESWNoMWF","B_Kwando",5,100,41,100
+"10","ESWNoMWF","C_Okavango",81,100,99,90
+"11","ESWNoMWF","D_Chobe",14,100,98,100
+"12","ESWNoMWF","E_Zambezi",78,100,99,84
+"13","ESWNoMWF","F_Ngamiland",0,100,91,100
+"14","ESWNoMWF","G_Makgadikgadi",0,100,92,99

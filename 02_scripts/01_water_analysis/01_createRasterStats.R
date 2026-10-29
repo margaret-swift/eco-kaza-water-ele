@@ -7,7 +7,7 @@
 source(here::here('02_scripts/utilities.R'))
 i_am('02_scripts/01_water_analysis/01_createRasterStats.R')
 datadir <- here('01_data', 'surfacewater', 'raw')
-outdir <- here('03_output', 'water_analysis')
+outdir <- here('03_output', '01_water_analysis')
 
 # ******************************************************************************
 #   RAINFALL DATA
@@ -68,13 +68,7 @@ mardata$YEAR = factor(mardata$YEAR, levels=mardata$YEAR)
 hydro_shp = st_read(here('01_data', 'elevation', 'raw','all_regions_dem.shp')) %>% 
   mutate(ID = ifelse(is.na(ID), HYBAS_ID, ID),
          ID = as.character(ID)) %>% 
-  dplyr::select(ID, mean_slope, min_slope, max_slope, 
-                mean_SRTM, min_SRTM, max_SRTM)
-
-# Load data for MWF fill - Hydrosheds
-mwf_stats <- read.csv(here(datadir, 'MWF_sizes_HY', 'MWF_sizes_all.csv')) %>% 
-  rename(ID=HYBAS_ID) %>% mutate(ID = as.character(ID)) |> 
-  dplyr::select(ID, area, count)
+  dplyr::select(ID, geometry)
 
 # Load data for ESW fill - Hydrosheds
 hdata = NULL
@@ -120,19 +114,16 @@ for (f in files) {
   else sizdata <- rbind(sizdata, data)
 }
 
-# combine hydroshed and SIZ data
-alldata = rbind(hdata, sizdata)
-
 
 # ******************************************************************************
 #   STATS FOR ALL DATA TOGETHER
 # ******************************************************************************
 
 # massage data
-stats <- alldata %>% 
+stats <- rbind(hdata, sizdata) %>% 
   group_by(ID) %>% 
   left_join(mar_m, by=c("ID", "YEAR")) %>% 
-  left_join(mwf_stats, by=c("ID")) %>%
+  left_join(hydro_shp |> select(ID, geometry), by="ID") |> 
   mutate(
     # coverage
     ESW_SIZE_M2 = ESW_NPIX * PX_AREA,
@@ -147,39 +138,13 @@ stats <- alldata %>%
     YEAR = factor(YEAR, levels=2019:2025),
     PERIOD = factor(PERIOD, levels=pds),
     MONTH=month(START),
-    ID = factor(ID),
+    ID = factor(ID)
   ) %>% 
   # remove hydrosheds with max fill less than 1000 pixels
-  filter(MWF_SIZE_M2 > 1000)
-
-fill_stats = stats %>%
-  group_by(ID) %>% 
-  summarize(mean_fill = mean(COVER_P, na.rm=TRUE), 
-            sd_fill = sd(COVER_P, na.rm=TRUE)) %>% 
-  mutate(INX = 1:n())
-
-sdat = stats %>% st_drop_geometry() %>% 
-  group_by(TYPE, PERIOD, YEAR) %>% 
-  summarize(cover_mu = mean(COVER_P, na.rm=TRUE), 
-            cover_sd = sd(COVER_P, na.rm=TRUE), 
-            mar_mu = mean(MAR),
-            mar_sd = sd(MAR))
-stats = stats %>% 
-  left_join(fill_stats, by="ID") %>% 
-  left_join(hydro_shp, by="ID") %>% 
-  mutate(FGROUP = case_when( mean_fill > 0.8 ~ 1,
-                             mean_fill > 0.4 ~ 2,
-                             mean_fill > 0.2 ~ 3,
-                             .default = 4),
-         GROUP = ifelse(sd_fill / mean_fill > 0.35, "fugitive", "persistent")) %>% 
+  filter(MWF_SIZE_M2 > 1000) %>% 
   st_as_sf()
-logidata = stats %>% st_drop_geometry() %>% as.data.frame()
-betadata = logidata %>% filter(ISFILL)
-
-
+  
 # ******************************************************************************
 #  SAVE ALL DATA
 # ******************************************************************************
-# save(stats, fill_stats, sdat, hdata, sizdata, alldata,
-#      siz_catch_mar, mar_m, mardata,
-#      logidata, betadata, file=here(outdir, "hydrostats.rdata"))
+save(stats, mardata, file=here(outdir, "water_analysis.rdata"))

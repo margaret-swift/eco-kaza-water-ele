@@ -56,7 +56,9 @@ t1 = rbind(t1_esw, t1_gsw,
 write.csv(t1, file=here(outdir, "Table1.csv"))
 
 # for appendix
-t1_esw_no_mwf = massageData('ESWNoMWF')
+ts4_esw_no_mwf = massageData('ESWNoMWF')
+ts4 = rbind(t1_esw, ts4_esw_no_mwf)
+write.csv(ts4, file=here(outdir, "TableS4.csv"))
 
 # ******************************************************************************
 # ******************************************************************************

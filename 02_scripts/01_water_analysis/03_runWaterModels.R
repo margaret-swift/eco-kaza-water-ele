@@ -8,9 +8,9 @@
 source(here::here('02_scripts', 'utilities.R'))
 i_am('02_scripts/water_analysis/03_runWaterModels.R')
 outdir <- here('03_output', 'water_analysis')
-load(here(outdir, "hydrostats.rdata"))
-pacman::p_load(LaplacesDemon,emmeans,
-               brms, parameters, tidybayes, tinytable, betareg)
+load(here(outdir, "water_analysis.rdata"))
+pacman::p_load(LaplacesDemon,# logit and invlogit
+               emmeans,brms, parameters, tidybayes, tinytable, betareg)
 # ******************************************************************************
 
 # ESW report
@@ -28,6 +28,12 @@ stats %>%
   summarize(sum(ESW_SIZE_M2/10000)) %>% 
   View()
 
+
+# ******************************************************************************
+# make logistic and beta data for regressions
+# 
+logidata = stats %>% st_drop_geometry() %>% as.data.frame()
+betadata = logidata %>% filter(ISFILL)
 
 # ******************************************************************************
 
