@@ -64,12 +64,6 @@ mardata$YEAR = factor(mardata$YEAR, levels=mardata$YEAR)
 #   ESW FILL DATA
 # ******************************************************************************
 
-# load Hydroshed DEM shapefiles
-hydro_shp = st_read(here('01_data', 'elevation', 'raw','all_regions_dem.shp')) %>% 
-  mutate(ID = ifelse(is.na(ID), HYBAS_ID, ID),
-         ID = as.character(ID)) %>% 
-  dplyr::select(ID, geometry)
-
 # Load data for ESW fill - Hydrosheds
 hdata = NULL
 files <- list.files(here(datadir, 'ESW_sizes_HY'), full.names=TRUE)
@@ -123,8 +117,6 @@ for (f in files) {
 stats <- rbind(hdata, sizdata) %>% 
   group_by(ID) %>% 
   left_join(mar_m, by=c("ID", "YEAR")) %>% 
-  # left_join(hydro_shp |> select(ID, geometry), by="ID") |> 
-  # st_as_sf() |> 
   mutate(
     # coverage
     ESW_SIZE_M2 = ESW_NPIX * PX_AREA,
