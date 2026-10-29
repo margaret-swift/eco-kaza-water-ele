@@ -10,17 +10,6 @@ datadir <- here('01_data', 'surfacewater', 'raw')
 outdir <- here('03_output', 'water_analysis')
 
 # ******************************************************************************
-#   SHAPEFILES
-# ******************************************************************************
-
-# load Hydroshed DEM shapefiles
-hydro_shp = st_read(here('01_data', 'elevation', 'raw','all_regions_dem.shp')) %>% 
-  mutate(ID = ifelse(is.na(ID), HYBAS_ID, ID),
-         ID = as.character(ID)) %>% 
-  dplyr::select(ID, mean_slope, min_slope, max_slope, 
-                mean_SRTM, min_SRTM, max_SRTM)
-                
-# ******************************************************************************
 #   RAINFALL DATA
 # ******************************************************************************
 
@@ -74,6 +63,13 @@ mardata$YEAR = factor(mardata$YEAR, levels=mardata$YEAR)
 # ******************************************************************************
 #   ESW FILL DATA
 # ******************************************************************************
+
+# load Hydroshed DEM shapefiles
+hydro_shp = st_read(here('01_data', 'elevation', 'raw','all_regions_dem.shp')) %>% 
+  mutate(ID = ifelse(is.na(ID), HYBAS_ID, ID),
+         ID = as.character(ID)) %>% 
+  dplyr::select(ID, mean_slope, min_slope, max_slope, 
+                mean_SRTM, min_SRTM, max_SRTM)
 
 # Load data for MWF fill - Hydrosheds
 mwf_stats <- read.csv(here(datadir, 'MWF_sizes_HY', 'MWF_sizes_all.csv')) %>% 
