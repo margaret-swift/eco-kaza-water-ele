@@ -73,7 +73,8 @@ hydro_shp = st_read(here('01_data', 'elevation', 'raw','all_regions_dem.shp')) %
 
 # Load data for MWF fill - Hydrosheds
 mwf_stats <- read.csv(here(datadir, 'MWF_sizes_HY', 'MWF_sizes_all.csv')) %>% 
-  rename(ID=HYBAS_ID) %>% mutate(ID = as.character(ID))
+  rename(ID=HYBAS_ID) %>% mutate(ID = as.character(ID)) |> 
+  dplyr::select(ID, area, count)
 
 # Load data for ESW fill - Hydrosheds
 hdata = NULL
@@ -179,6 +180,6 @@ betadata = logidata %>% filter(ISFILL)
 # ******************************************************************************
 #  SAVE ALL DATA
 # ******************************************************************************
-save(stats, fill_stats, sdat, hdata, sizdata, alldata,
-     siz_catch_mar, mar_m, mardata,
-     logidata, betadata, file=here(outdir, "hydrostats.rdata"))
+# save(stats, fill_stats, sdat, hdata, sizdata, alldata,
+#      siz_catch_mar, mar_m, mardata,
+#      logidata, betadata, file=here(outdir, "hydrostats.rdata"))
