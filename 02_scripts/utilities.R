@@ -1,22 +1,43 @@
 # utilities.R
 # Holds utility data and functions for use across analyses.
 
-# load useful packages
+# ******************************************************************************
+#   PACKAGES
+# ******************************************************************************
+
 pacman::p_load(here, tidyverse, reshape2, sf, terra, patchwork)
 
-# set CRS parameters
+
+# ******************************************************************************
+#   GLOBAL PARAMETERS
+# ******************************************************************************
+
 CRS_utm <- '+init=EPSG:20935'
 
-# FUNCTIONS
-# 
-# ## ==========================================================
+
+# ******************************************************************************
+#   GENERAL FUNCTIONS
+# ******************************************************************************
+
+# finding anomaly from the mean
+myAnomaly = function(dat) {
+  mu = mean(dat, na.rm=TRUE)
+  chg = (dat-mu) / mu
+  return(chg)
+}
+
+
+# ******************************************************************************
+#   PLOTTING FUNCTIONS
+# ******************************************************************************
+
 # pretty Tukey plot
 GGTukey <- function(m.tuk){
   tuk.df <- as.data.frame(m.tuk[1])
   colnames(tuk.df)[2:3]<-c("min", "max")
   tuk.df<-data.frame(id=row.names(tuk.df),
-                min=tuk.df$min,
-                max=tuk.df$max)
+                     min=tuk.df$min,
+                     max=tuk.df$max)
   tuk.plt <- tuk.df %>%
     ggplot(aes(id))+
     geom_errorbar(aes(ymin=min,

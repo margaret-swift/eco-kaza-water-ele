@@ -2,27 +2,29 @@
 # Margaret Swift <margaret.swift@cornell.edu>
 # 
 # ******************************************************************************
-#                             DATA & LIBRARY LOADING
+#   DATA & LIBRARY LOADING
 # ******************************************************************************
 source(here::here('02_scripts/utilities.R'))
-i_am('02_scripts/water_analysis/01_createRasterStats.R')
+i_am('02_scripts/01_water_analysis/01_createRasterStats.R')
 datadir <- here('01_data', 'surfacewater', 'raw')
 outdir <- here('03_output', 'water_analysis')
 
-##############################################################
-#                       RAINFALL DATA
-##############################################################
+# ******************************************************************************
+#   SHAPEFILES
+# ******************************************************************************
 
-# load shapefiles
+# load Hydroshed DEM shapefiles
 hydro_shp = st_read(here('01_data', 'elevation', 'raw','all_regions_dem.shp')) %>% 
   mutate(ID = ifelse(is.na(ID), HYBAS_ID, ID),
          ID = as.character(ID)) %>% 
   dplyr::select(ID, mean_slope, min_slope, max_slope, 
                 mean_SRTM, min_SRTM, max_SRTM)
+                
+# ******************************************************************************
+#   RAINFALL DATA
+# ******************************************************************************
 
-# load rainfall data for hydrosheds
-mwf_stats <- read.csv(here(datadir,'HydroshedMWFStatsSlim.csv')) %>% 
-  rename(ID=HYBAS_ID) %>% mutate(ID = as.character(ID))
+# load Mean Annual Rainfall (MAR) data for hydrosheds
 hydro_mar <- read.csv(here('01_data', 'rainfall', 'raw','Hydroshed_MAR.csv')) %>% 
   relocate('HYBAS_ID') %>% select(-system.index, -.geo)
 hydro_mar_m = reshape2::melt(hydro_mar, id.var="HYBAS_ID", 
@@ -30,12 +32,12 @@ hydro_mar_m = reshape2::melt(hydro_mar, id.var="HYBAS_ID",
   mutate(YEAR = as.numeric(gsub("X", "", YEAR))) %>% 
   rename(ID=HYBAS_ID)
 
-# load rainfall data for SIZ catchments
+# load Mean Annual Rainfall (MAR) data for SIZ Catchments
 siz_catch_mar <- read.csv(here('01_data','rainfall','raw','SIZ_Catchments_MAR.csv')) %>% 
   relocate('name') %>% select(-system.index, -.geo)
 
 # Chobe and Linyanti SIZ also use Zambezi catchment; 
-#   Makgadikgadi gets water from both Nata and Okavango
+#   Makgadikgadi gets water from both Nata and Okavango catchments
 zambezi = siz_catch_mar %>% filter(name=="Zambezi")
 okavango = siz_catch_mar %>% filter(name=="Okavango")
 nata = siz_catch_mar %>% filter(name=="Nata")
@@ -54,7 +56,7 @@ siz_mar_m = rbind(
   makgadikgadi 
 ) %>% 
   reshape2::melt(id.var="name", 
-                variable.name="YEAR", value.name="MAR") %>% 
+                 variable.name="YEAR", value.name="MAR") %>% 
   mutate(YEAR = as.numeric(gsub("mm", "", YEAR))) %>% 
   rename(ID=name)
 
@@ -67,10 +69,17 @@ mardata = mar_m %>% group_by(YEAR) %>%
   arrange(mMAR, desc=TRUE)
 mardata$YEAR = factor(mardata$YEAR, levels=mardata$YEAR)
 
-##############################################################
-#                       ESW FILL DATA
-##############################################################
-# load hydroshed data
+
+
+# ******************************************************************************
+#   ESW FILL DATA
+# ******************************************************************************
+
+# Load data for MWF fill - Hydrosheds
+mwf_stats <- read.csv(here(datadir, 'MWF_sizes_HY', 'MWF_sizes_all.csv')) %>% 
+  rename(ID=HYBAS_ID) %>% mutate(ID = as.character(ID))
+
+# Load data for ESW fill - Hydrosheds
 hdata = NULL
 files <- list.files(here(datadir, 'ESW_sizes_HY'), full.names=TRUE)
 for (f in files) {
@@ -96,7 +105,7 @@ pds.df <- data.frame(MONTH=1:12,
                      PERIOD=c('NOV_FEB', 'FEB_MAY', 'FEB_MAY', 'FEB_MAY', 'MAY_JUL', 'MAY_JUL',
                               'JUL_SEP', 'JUL_SEP', 'SEP_NOV', 'SEP_NOV', 'NOV_FEB', 'NOV_FEB'))
 
-# load SIZ data
+# Load data for ESW fill - SIZ
 files <- list.files(here(datadir, 'ESW_sizes_SIZ'), full.names=TRUE)
 sizdata = NULL
 for (f in files) {
@@ -106,7 +115,7 @@ for (f in files) {
     mutate(TYPE='SIZ', MWF_NPIX=NA,
            START=as.POSIXct(as.Date(START, "%m/%d/%y")),
            END=as.POSIXct(as.Date(END, "%m/%d/%y")),
-           ) %>%
+    ) %>%
     left_join(pds.df, by="MONTH") %>%
     select_at(names(hdata))
   data$MWF_NPIX = max(data$ESW_NPIX)
@@ -114,19 +123,15 @@ for (f in files) {
   else sizdata <- rbind(sizdata, data)
 }
 
+# combine hydroshed and SIZ data
 alldata = rbind(hdata, sizdata)
 
 
-##############################################################
-#                       STATS FOR ALL DATA
-##############################################################
+# ******************************************************************************
+#   STATS FOR ALL DATA TOGETHER
+# ******************************************************************************
 
 # massage data
-myAnomaly = function(dat) {
-  mu = mean(dat, na.rm=TRUE)
-  chg = (dat-mu) / mu
-  return(chg)
-}
 stats <- alldata %>% 
   group_by(ID) %>% 
   left_join(mar_m, by=c("ID", "YEAR")) %>% 
@@ -171,9 +176,13 @@ stats = stats %>%
                              .default = 4),
          GROUP = ifelse(sd_fill / mean_fill > 0.35, "fugitive", "persistent")) %>% 
   st_as_sf()
-
 logidata = stats %>% st_drop_geometry() %>% as.data.frame()
 betadata = logidata %>% filter(ISFILL)
+
+
+# ******************************************************************************
+#  SAVE ALL DATA
+# ******************************************************************************
 save(stats, fill_stats, sdat, hdata, sizdata, alldata,
      siz_catch_mar, mar_m, mardata,
      logidata, betadata, file=here(outdir, "hydrostats.rdata"))
