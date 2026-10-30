@@ -5,7 +5,7 @@
 #   DATA & LIBRARY LOADING
 # ******************************************************************************
 source(here::here('02_scripts/utilities.R'))
-i_am('02_scripts/01_water_analysis/01_createRasterStats.R')
+i_am('02_scripts/01_water_analysis/01_createESWStats.R')
 datadir <- here('01_data', 'surfacewater', 'raw')
 outdir <- here('03_output', '01_water_analysis')
 
@@ -53,10 +53,10 @@ siz_mar_m = rbind(
 mar_m = rbind(siz_mar_m, hydro_mar_m)
 
 # add some stats and order by year
-mardata = mar_m %>% group_by(YEAR) %>% 
+kaza_mar_df = mar_m %>% group_by(YEAR) %>% 
   summarize(mMAR=mean(MAR), sdMAR=sd(MAR))%>% 
   arrange(mMAR, desc=TRUE)
-mardata$YEAR = factor(mardata$YEAR, levels=mardata$YEAR)
+kaza_mar_df$YEAR = factor(kaza_mar_df$YEAR, levels=kaza_mar_df$YEAR)
 
 
 
@@ -114,7 +114,7 @@ for (f in files) {
 # ******************************************************************************
 
 # massage data
-stats <- rbind(hdata, sizdata) %>% 
+esw_stats <- rbind(hdata, sizdata) %>% 
   group_by(ID) %>% 
   left_join(mar_m, by=c("ID", "YEAR")) %>% 
   mutate(
@@ -139,4 +139,4 @@ stats <- rbind(hdata, sizdata) %>%
 # ******************************************************************************
 #  SAVE ALL DATA
 # ******************************************************************************
-save(stats, mardata, file=here(outdir, "water_analysis.rdata"))
+save(esw_stats, kaza_mar_df, file=here(outdir, "water_analysis.rdata"))

@@ -15,12 +15,12 @@ pacman::p_load(LaplacesDemon,# logit and invlogit
 
 # ESW report
 
-stats %>% 
+esw_stats %>% 
   group_by(TYPE, PERIOD) %>% 
   summarize(m=mean(ESW_SIZE_M2/10000), 
             sd=sd(ESW_SIZE_M2/10000), 
   )
-stats %>% 
+esw_stats %>% 
   filter(TYPE == "HYDROSHED") %>% 
   group_by(PERIOD, YEAR) %>% 
   summarize(sum(ESW_SIZE_M2/10000)) %>% 
@@ -30,7 +30,7 @@ stats %>%
 # ******************************************************************************
 # make logistic and beta data for regressions
 # 
-logidata = stats %>% as.data.frame()
+logidata = esw_stats %>% as.data.frame()
 betadata = logidata %>% filter(ISFILL)
 
 # ******************************************************************************

@@ -11,7 +11,7 @@ i_am('02_scripts/01_water_analysis/00_validation.R')
 regions = c('A_Kalala', 'B_Kwando', 'C_Okavango', 'D_Chobe', 
             'E_Zambezi', 'F_Ngamiland', 'G_Makgadikgadi')
 datadir <- here('01_data', 'surfacewater', 'raw', 'Validation_Data')
-outdir <- here('03_output', '01_water_analysis')
+outdir <- here('03_output', '01_water_analysis', 'tables')
 
 # ******************************************************************************
 #   FUNCTIONS

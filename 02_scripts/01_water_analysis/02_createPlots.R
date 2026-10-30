@@ -25,9 +25,9 @@ plot.theme = theme_minimal() + theme(text=element_text(size=15))
 #   FIGURE 4
 # ******************************************************************************
 # Fig. 4a: Mean Annual Rainfall (MAR) for KAZA aggregated regionally
-p.rainfall = ggplot(mardata,
+p.rainfall = ggplot(kaza_mar_df,
                     aes(x=as.character(YEAR), y=mMAR, fill=YEAR)) + 
-  geom_hline(yintercept=mean(mardata$mMAR), color='#35323b', linetype="dashed") +
+  geom_hline(yintercept=mean(kaza_mar_df$mMAR), color='#35323b', linetype="dashed") +
   geom_bar(stat='identity') + 
   geom_point(aes(x=YEAR, y=mMAR-sdMAR)) +
   geom_point(aes(x=YEAR, y=mMAR+sdMAR)) +
@@ -42,7 +42,7 @@ ggsave(p.rainfall,
        width=12, height=3)
 
 # Fig. 4b: Hydroshed water fill levels
-p.fill.hy = ggplot(data=stats %>% filter(TYPE == "HYDROSHED"),
+p.fill.hy = ggplot(data=esw_stats %>% filter(TYPE == "HYDROSHED"),
                    aes(x=PERIOD, y=ESW_SIZE_M2/10000, fill=PERIOD)) + 
   geom_bar(position="stack", stat="identity") +
   facet_wrap(~YEAR, nrow=1, scales="free_x") +
@@ -57,7 +57,7 @@ ggsave(p.fill.hy,
 
 # Fig. 4c: SIZ water fill levels
 buildPlot <- function(ids, colors) {
-  p = ggplot(data=stats %>% filter(ID %in% ids), 
+  p = ggplot(data=esw_stats %>% filter(ID %in% ids), 
              aes(x=START, y=ESW_SIZE_M2/10000, color=ID)) + 
     geom_point(size=0.5) + geom_line() +
     ylab('ESW fill (km2)') + xlab('') +
@@ -83,24 +83,24 @@ ggsave(p.fill.siz,
 # ******************************************************************************
 
 # prep data
-sdat = stats %>% 
+esw_stat_sum = esw_stats %>% 
   group_by(TYPE, PERIOD, YEAR) %>% 
   summarize(cover_mu = mean(COVER_P, na.rm=TRUE), 
             cover_sd = sd(COVER_P, na.rm=TRUE), 
             mar_mu = mean(MAR),
             mar_sd = sd(MAR))
-sdat.hy = sdat %>% filter(TYPE == "HYDROSHED") %>% 
-  mutate(YEAR = factor(YEAR, levels=mardata$YEAR))
-stats.hy = stats %>% filter(COVER_P<1, TYPE == "HYDROSHED")%>% 
-  mutate(YEAR = factor(YEAR, levels=mardata$YEAR))
+esw_stat_sum.hy = esw_stat_sum %>% filter(TYPE == "HYDROSHED") %>% 
+  mutate(YEAR = factor(YEAR, levels=kaza_mar_df$YEAR))
+esw_stat.hy = esw_stats %>% filter(COVER_P<1, TYPE == "HYDROSHED")%>% 
+  mutate(YEAR = factor(YEAR, levels=kaza_mar_df$YEAR))
 
 # Figure 5a - fill anomaly vs period
-p5a = ggplot(stats.hy, aes(x=PERIOD, group=YEAR, color=YEAR)) + 
+p5a = ggplot(esw_stat.hy, aes(x=PERIOD, group=YEAR, color=YEAR)) + 
   geom_hline(yintercept=0, linetype='dashed') +
   geom_jitter(aes(y=COVER_P), width=0.215, shape=1, alpha=0.7) +
-  geom_line(data=sdat.hy, aes(y=cover_mu), linewidth=1) +
-  geom_point(data=sdat.hy, aes(y=cover_mu), size=2.5, color="black") +
-  geom_point(data=sdat.hy, aes(y=cover_mu), width=0.2) +
+  geom_line(data=esw_stat_sum.hy, aes(y=cover_mu), linewidth=1) +
+  geom_point(data=esw_stat_sum.hy, aes(y=cover_mu), size=2.5, color="black") +
+  geom_point(data=esw_stat_sum.hy, aes(y=cover_mu), width=0.2) +
   xlab("pentad") + ylab('pMWF') +
   guides(color="none") +
   plot.theme +
@@ -111,7 +111,7 @@ ggsave(p5a,
        width=5, height=5)
 
 # Figure 5b - Beta model of fill vs precip by period
-p5b = ggplot(data=stats %>% filter(COVER_P<1, COVER_P>0),
+p5b = ggplot(data=esw_stats %>% filter(COVER_P<1, COVER_P>0),
              aes(x=MAR_D, y=COVER_P, color=PERIOD)) + 
   geom_point(size=0.3) + 
   geom_smooth(method="lm") +
