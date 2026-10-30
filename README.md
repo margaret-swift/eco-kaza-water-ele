@@ -1,4 +1,5 @@
-# eco-kaza-water-ele
+# eco-kaza-water-ele [![DOI](https://zenodo.org/badge/1438838513.svg)](https://doi.org/10.5281/zenodo.23814427)
+
 Repo. for Swift et al 2026 Ecosphere analysis: "Mapping small-scale ephemeral surface water to inform transfrontier conservation planning in southern Africa"
 
 ## 00_metadata
