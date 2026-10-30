@@ -15,8 +15,8 @@ All metadata for data files and analysis outputs:
 
 ## 01_data
 Data files used in analysis.
-- aoi: Area of interest for this study
-- fences: veterinary fences in the AOI
+- aoi: Area of interest for this study (drawn in GEE)
+- fences: veterinary fences in the AOI (provided from https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/1365-2664.14746)
 - rainfall: mean annual rainfall for each region within KAZA (from CHIRPS)
 - surfacewater: surface water data and statistics outputted from Google Earth Engine
 - elephant: NOT AVAILABLE (elephant GPS data are protected)
