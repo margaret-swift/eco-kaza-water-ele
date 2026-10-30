@@ -8,7 +8,7 @@
 #                             DATA & LIBRARY LOADING
 # ******************************************************************************
 source(here::here('02_scripts/utilities.R'))
-i_am('02_scripts/01_elephant_analysis/00_cleanGeographicData.R')
+i_am('02_scripts/02_elephant_analysis/00_cleanGeographicData.R')
 
 path_water <- here('01_data', 'surfacewater')
 path_lc <- here('01_data', 'landcover')
