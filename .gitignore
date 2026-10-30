@@ -4,6 +4,10 @@
 .Ruserdata
 
 
-# elephant data
+# elephant data is protected
 /01_data/elephant/*
+
+# landcover data is too large
+## KAZA 2005 data source: https://panda.maps.arcgis.com/home/item.html?id=b82b036653df4ef8abf184f1c4c656ec#overview
+## KAZA 2021 data source: https://panda.maps.arcgis.com/home/item.html?id=0bd9f1902e4c4b9389d8c1f473c76d04
 /01_data/landcover/raw/*
