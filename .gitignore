@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+
+
+# elephant data
+/01_data/elephant/*
