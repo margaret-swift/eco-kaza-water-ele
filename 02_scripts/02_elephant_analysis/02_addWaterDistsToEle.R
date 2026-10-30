@@ -71,8 +71,10 @@ freq_names = c("MFREQ")
 colnames = c(esw_names, gsw_names,
              eswp_names5, eswp_names10, eswp_names15,
              ndwi2_names, mndwi_names, wi2015_names,
+             lc05_names, lc21_names,
              rsw_names,
-             freq_names)
+             freq_names
+             )
 nn.dat = matrix(NA, nrow=nrow(ele.dat), ncol=length(colnames)) %>% as.data.frame()
 names(nn.dat) = colnames
 
@@ -90,14 +92,14 @@ for (i in 1:nrow(aoi.split)) {
   inx = nn.roi$INX
   
   # function to find nearest neighbors
-  # nnVectors <- function(wpts) {
-  #   wpts = wpts |> st_crop(roi)
-  #   nn = st_nn(nn.roi, wpts, returnDist=TRUE)
-  #   ids = unlist(nn$nn)
-  #   freq = wpts$recurrence[ids]
-  #   dist = unlist(nn$dist)
-  #   return(data.frame(NN_ID = ids, NN_DIST = dist, NN_FREQ = freq))
-  # }
+  nnVectors <- function(wpts) {
+    wpts = wpts |> st_crop(roi)
+    nn = st_nn(nn.roi, wpts, returnDist=TRUE)
+    ids = unlist(nn$nn)
+    freq = wpts$recurrence[ids]
+    dist = unlist(nn$dist)
+    return(data.frame(NN_ID = ids, NN_DIST = dist, NN_FREQ = freq))
+  }
   
   # ESW
   nn.dat[inx,esw_names] <- nnVectors(esw.utm.df)
@@ -119,7 +121,7 @@ for (i in 1:nrow(aoi.split)) {
   nn.dat[inx, lc21_names] <- nnVectors(lc21.utm.df)
 
   # RSW - random surface water generated points
-  # function for nearest neighbor random points
+  function for nearest neighbor random points
   nnRand = function(rsw_rand) {
     rsw_roi = rsw_rand %>% st_crop(roi)
     nn_rsw = st_nn(nn.roi, rsw_roi, returnDist=TRUE)
@@ -129,7 +131,7 @@ for (i in 1:nrow(aoi.split)) {
                   nnRand(rsw_2500_1),  nnRand(rsw_2500_2),  nnRand(rsw_2500_3),
                   nnRand(rsw_5000_1),  nnRand(rsw_5000_2),  nnRand(rsw_5000_3))
   nn.dat[inx,rsw_names] <- nn_rsw
-  
+
   # freqs
   w.roi = esw.utm.df |> st_crop(roi)
   nn = st_nn(nn.roi, w.roi, k=10, returnDist=TRUE)
@@ -160,3 +162,9 @@ ele.dat = ele.dat %>%
 
 # save
 save(ele.dat, file=here('01_data', 'elephant', 'processed', 'elephant_with_dists.rdata'))
+
+# save a safe version of elephant data
+keep.cols = c('INX', 'ID', 'START.COUNT', 'YEAR', 'SEASON', colnames)
+ele.dat.safe = st_drop_geometry(ele.dat) |>
+  dplyr::select(all_of(keep.cols))
+save(ele.dat.safe, file=here('03_output', '02_elephant_analysis', 'elephant_analysis.rdata'))

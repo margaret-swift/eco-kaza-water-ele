@@ -12,7 +12,7 @@
 source(here::here('02_scripts/utilities.R'))
 i_am('02_scripts/02_elephant_analysis/03_runEleCaseStudies.R')
 pacman::p_load(lme4)
-load(here('01_data', 'elephant', 'processed', 'elephant_with_dists.rdata'))
+load(here('03_output', '02_elephant_analysis', 'elephant_analysis.rdata'))
 
 # ******************************************************************************
 # my thresholds
@@ -36,11 +36,11 @@ vars.ls = c('GSW', 'ESW', 'ESWP15',
 # ******************************************************************************
 # create ele stats data for T = dist_T
 createEleStatistics <- function(dist_T) {
+  message('creating data for T=', dist_T, 'm')
   createGroupingVariables <- function(slug) {
-    print(slug)
     col = paste0(slug, "_NN_DIST")
     cols <- c('START.COUNT', col)
-    df = ele.dat[,cols] |> st_drop_geometry()
+    df = ele.dat.safe[,cols] |> st_drop_geometry()
     names(df) = c('START.COUNT', 'NN_DIST')
     df=df |> 
       mutate(NEAR = NN_DIST < dist_T, 
@@ -57,7 +57,7 @@ createEleStatistics <- function(dist_T) {
   # adds thirst counter, etc. 
   df = sapply(vars.ls, createGroupingVariables)
   colnames(df) <- paste0('THIRST_', colnames(df))
-  ele.stats = cbind(ele.dat, df) |> ungroup()|> st_drop_geometry()
+  ele.stats = cbind(ele.dat.safe, df) |> ungroup()|> st_drop_geometry()
   return(ele.stats)
 }
 
@@ -143,7 +143,6 @@ makeStats <- function(dist_T) {
       mutate(p48 = n48 / total)
     return(df$p48)
   }
-  
   stats_all = sapply(vars.ls, createTimingVariables) |> as.data.frame() |> t() |> as.data.frame() 
   colnames(stats_all) <- paste0(colnames(stats_all), '_p48')
   rownames(stats_all) <- NULL
@@ -204,8 +203,8 @@ ele.stats.322 %>% st_drop_geometry() %>%
 # (3) dw,i was higher in the wet season than the dry season for ephemeral water 
 #   (ESW), and higher in the dry season than the wet season for permanent water 
 #   (ESW15) (significant difference between means was confirmed using a t-test). 
-wet = ele.dat |> filter(SEASON == "WET") |> st_drop_geometry()
-dry = ele.dat |> filter(SEASON == "DRY") |> st_drop_geometry()
+wet = ele.dat.safe |> filter(SEASON == "WET") |> st_drop_geometry()
+dry = ele.dat.safe |> filter(SEASON == "DRY") |> st_drop_geometry()
 t.test(wet$ESW_NN_DIST, dry$ESW_NN_DIST)
 t.test(wet$ESWP15_NN_DIST, dry$ESWP15_NN_DIST)
 
