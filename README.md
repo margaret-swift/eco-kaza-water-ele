@@ -27,6 +27,31 @@ Data files used in analysis.
 
 ## 02_scripts
 
+### 00_google_earth_engine
+Scripts for Google Earth Engine code to create Ephemeral Surface Water (ESW) and Maximum Water Fill (MWF) datasets, as well as validation. Functions used across code snippets are found in 00_Functions.js. Validation code is found in 30_Validate_Accuracy.js (permalink: https://code.earthengine.google.com/7c1aed33d09b5c382d6db73357e0b3f4)
+
+####  Hydroshed workflow 
+- 11_Create_MWF_Hydrosheds.js
+  - creates the MWF positive mask for each hydroshed by aggregating water layers for the three wettest years
+  - permalink: https://code.earthengine.google.com/c51a6488b6315caa956570beb8074de4
+  - permalink 2: https://code.earthengine.google.com/293edaeda9272150b0dfeecfd62abcd0
+- 12_Create_ESW_Hydrosheds.js
+  - creates the ESW layer for each hydroshed for each of 35 time steps from 2019-2025
+  - permalink: https://code.earthengine.google.com/54b75b5b929e98ee2e0d788dd6e1a0a8
+  - creation by Hydroshed ID permalink: https://code.earthengine.google.com/c0b889606ea573622e8e3c8efc74834b
+- 13_Create_ESWr_Hydrosheds.js
+  - aggregates ESW layer for each hydroshed into a dry season, wet season, and total recurrence raster.
+  - permalink: https://code.earthengine.google.com/315e0758be5c833c73957ff6eb595510
+
+#### Seasonal Inundation Zone workflow
+The workflow for Seasonal Inundation Zones (SIZ) does not include MWF creation.
+- 22_Create_ESW_SIZ.js
+  - creates the ESW layer for each SIZ for each of >50 time steps from 2019-2025
+  - permalink: https://code.earthengine.google.com/0e0c31baaa401fcb607ff02993e0e818
+- 23_Create_ESWr_SIZ.js
+  - aggregates ESW layer for each SIZ into a dry season, wet season, and total recurrence raster.
+  - permalink: https://code.earthengine.google.com/a14458a93192bc6f8b62670e821a979e
+
 ### 01_water_analysis
 Analysis scripts for Seasonal surface water analysis (Sec. 3.3 results) 
 - 00_validation.R - clean up validation data exported from GEE
