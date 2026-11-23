@@ -1,0 +1,27 @@
+﻿Data location,/01_data/rainfall/raw/Hydroshed_MAR,,
+Data description,Mean Annual Rainfall (MAR) from Hydrosheds,,
+,,,
+Column Name,Description,Unit or Category,Example
+system:index,GEE System object index,str,0
+2019,2019 Mean Annual Rainfall,mm,376.1560557
+2020,2020 Mean Annual Rainfall,mm,661.7559065
+2021,2021 Mean Annual Rainfall,mm,732.3996543
+2022,2022 Mean Annual Rainfall,mm,801.1043958
+2023,2023 Mean Annual Rainfall,mm,389.6318542
+2024,2024 Mean Annual Rainfall,mm,435.0984228
+2025,2025 Mean Annual Rainfall,mm,635.2808545
+HYBAS_ID,Hydroshed ID,str,1051431680
+.geo,GEE multipoint coordinate data,[empty],"{""type"":""MultiPoint"",""coordinates"":[]}"
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,

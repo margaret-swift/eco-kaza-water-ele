@@ -1,0 +1,7 @@
+﻿Data location,/01_data/surfacewater/raw/AOI_rasters,,
+Data description,Rasters of surface water within AOI,,
+,,,
+Column Name,Description,Unit,Example
+x,UTM x coordinate,m,860000
+y,UTM y coordinate,m,7990000
+recurrence,frequency of water return,frequency,3.4

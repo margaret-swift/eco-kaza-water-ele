@@ -1,0 +1,14 @@
+﻿Data location,/01_data/surfacewater/raw/Validation_Data,,
+Data description,Validation data tables for all 7 validation regions,,
+,,,
+Column Name,Description,Unit or Category,Example
+system:index,GEE system index of object,char,1_1_0
+SEASON,"season for validation (WET March 2021, DRY July 2019)","{WET, DRY}",WET
+n_false,# of validation points incorrectly classified,count,94
+n_total,"# of validation points in region, season, and type",count,356
+n_true,# of validation points correctly classified,count,262
+p_false,% of validation points incorrectly classified,percent,0.2640449438202247
+p_true,% of validation points correctly classified,percent,0.7359550561797753
+region,Name of validation region,char,VROI_A_ne_forest
+type,type of validation point (WATER or NOTWATER),"{WATER, NOTWATER}",WATER
+.geo,multipoint coordinate data from GEE,[empty],"{""type"":""MultiPoint"",""coordinates"":[]}"

@@ -1,0 +1,52 @@
+﻿Location,/03_output/02_elephant_analysis/elephant_analysis.rdata,,
+Object,ele.safe.dat,,
+Source,02_addWaterDistsToEle.R,,
+Description,Distance-to-water  for all water indices,,
+Notes,GPS location and date-time data have been removed for the public dataset.,,
+,,,
+Column Name,Description,Units,Example
+INX,index,num,1
+ID,ID (sequential) of elephant,str,1
+START.COUNT,was this the first GPS point of a new burst?,boolean,TRUE
+YEAR,Year of GPS point,year,2015
+SEASON,season (wet or dry),str,WET
+ESW_NN_ID,ID of nearest neighbor (ESW),str,1
+ESW_NN_DIST,distance to nearest neighbor (ESW),m,1000
+ESW_NN_RECUR,recurrence of nearest neighbor (ESW),frequency,3.4
+GSW_NN_ID,ID of nearest neighbor (GSW),str,1
+GSW_NN_DIST,distance to nearest neighbor (GSW),m,1000
+GSW_NN_RECUR,recurrence of nearest neighbor (GSW),frequency,3.4
+ESWP5_NN_ID,ID of nearest neighbor (ESWP - greater than 5 recurrence),str,1
+ESWP5_NN_DIST,distance to nearest neighbor (ESWP - greater than 5 recurrence),m,1000
+ESWP5_NN_RECUR,recurrence of nearest neighbor (ESWP - greater than 5 recurrence),frequency,3.4
+ESWP10_NN_ID,ID of nearest neighbor (ESWP - greater than 10 recurrence),str,1
+ESWP10_NN_DIST,distance to nearest neighbor (ESWP - greater than 10 recurrence),m,1000
+ESWP10_NN_RECUR,recurrence of nearest neighbor (ESWP - greater than 10 recurrence),frequency,3.4
+ESWP15_NN_ID,ID of nearest neighbor (ESWP - greater than 15 recurrence),str,1
+ESWP15_NN_DIST,distance to nearest neighbor (ESWP - greater than 15 recurrence),m,1000
+ESWP15_NN_RECUR,recurrence of nearest neighbor (ESWP - greater than 15 recurrence),frequency,3.4
+NDWI2_NN_ID,ID of nearest neighbor (NDWI2),str,1
+NDWI2_NN_DIST,distance to nearest neighbor (NDWI2),m,1000
+NDWI2_NN_RECUR,recurrence of nearest neighbor (NDWI2),frequency,3.4
+MNDWI_NN_ID,ID of nearest neighbor (MNDWI),str,1
+MNDWI_NN_DIST,distance to nearest neighbor (MNDWI),m,1000
+MNDWI_NN_RECUR,recurrence of nearest neighbor (MNDWI),frequency,3.4
+WI2015_NN_ID,ID of nearest neighbor (WI2015),str,1
+WI2015_NN_DIST,distance to nearest neighbor (WI2015),m,1000
+WI2015_NN_RECUR,recurrence of nearest neighbor (WI2015),frequency,3.4
+RSW_1800_1_NN_DIST,ID of nearest neighbor (1800 random points),str,1
+RSW_1800_2_NN_DIST,distance to nearest neighbor (1800 random points),m,1000
+RSW_1800_3_NN_DIST,recurrence of nearest neighbor (1800 random points),frequency,3.4
+RSW_2500_1_NN_DIST,ID of nearest neighbor (2500 random points),str,1
+RSW_2500_2_NN_DIST,distance to nearest neighbor (2500 random points),m,1000
+RSW_2500_3_NN_DIST,recurrence of nearest neighbor (2500 random points),frequency,3.4
+RSW_5000_1_NN_DIST,ID of nearest neighbor (5000 random points),str,1
+RSW_5000_2_NN_DIST,distance to nearest neighbor (5000 random points),m,1000
+RSW_5000_3_NN_DIST,recurrence of nearest neighbor (5000 random points),frequency,3.4
+LC05_NN_ID,ID of nearest neighbor (KAZA 2005 landcover),str,1
+LC05_NN_DIST,distance to nearest neighbor (KAZA 2005 landcover),m,1000
+LC05_NN_RECUR,recurrence of nearest neighbor (KAZA 2005 landcover),frequency,3.4
+LC21_NN_ID,ID of nearest neighbor (KAZA 2021 landcover),str,1
+LC21_NN_DIST,distance to nearest neighbor (KAZA 2021 landcover),m,1000
+LC21_NN_RECUR,recurrence of nearest neighbor (KAZA 2021 landcover),frequency,3.4
+MFREQ,mean frequency of nearest ESW surface water ,frequency,3.4

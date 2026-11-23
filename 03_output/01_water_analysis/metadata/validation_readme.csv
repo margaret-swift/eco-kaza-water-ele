@@ -1,0 +1,24 @@
+﻿Location,/03_output/Table1.csv,,
+Source,00_validation.R,,
+Description,"Table 1 in final text - validation summaries for all regions, seasons, and water indices",,
+,,,
+Column Name,Description,Units,Example
+INDEXNAME,Name of water index,str,ESW
+REGION,Validation region,str,A_Kalala
+DRY_WATER,% of water points correct in dry season (July 2019),percent,94
+DRY_NOTWATER,% of nonwater points correct in dry season (July 2019),percent,100
+WET_WATER,% of water points correct in wet season (March 2021),percent,82
+WET_NOTWATER,% of nonwater points correct in wet season (March 2021),percent,100
+,,,
+,,,
+Location,/03_output/TableS4.csv,,
+Source,00_validation.R,,
+Description,Table S4 in Appendix 1 - validation summaries comparing ESW with and without MWF masking,,
+,,,
+Column Name,Description,Units,Example
+INDEXNAME,Name of water index,str,ESWNoMWF
+REGION,Validation region,str,A_Kalala
+DRY_WATER,% of water points correct in dry season (July 2019),percent,94
+DRY_NOTWATER,% of nonwater points correct in dry season (July 2019),percent,100
+WET_WATER,% of water points correct in wet season (March 2021),percent,82
+WET_NOTWATER,% of nonwater points correct in wet season (March 2021),percent,100

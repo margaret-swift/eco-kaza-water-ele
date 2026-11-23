@@ -1,0 +1,10 @@
+﻿Data location,/01_data/surfacewater/raw/MWF_sizes_HY,,
+Data description,Sizes of Maximum Water Fill datasets for all Hydrosheds,,
+,,,
+Column Name,Description,Unit or Category,Example
+INX,index,str,1
+HYBAS_ID,Hydroshed ID,str,1051431680
+area,Area covered by MWF within hydroshed,km2,4.762898785
+count,"# pixels classified as ""water"" within hydroshed MWF",count,410
+,,,
+,,,

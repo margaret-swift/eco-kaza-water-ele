@@ -1,0 +1,67 @@
+﻿Data location,/01_data/kaza/KAZA_boundary.shp,,
+Data description,Shapefile of KAZA boundary (PPF),,
+Data source,https://maps.ppf.org.za/arcgis/rest/services/KZTFCA/PublicApp/MapServer/0,,
+,,,
+Data location,/01_data/kaza/hydrosheds_siz.shp,,
+Data description,Hydrosheds and SIZ for analysis,,
+Data source,Hydrosheds from https://www.worldwildlife.org/our-work/science/hydrosheds/; SIZ hand-delineated on GEE,,
+Metadata source,https://data.hydrosheds.org/file/technical-documentation/HydroBASINS_TechDoc_v1c.pdf,,
+,,,
+Column,Description,,
+SUB_AREA,"Area of the individual polygon (i.e. sub-basin), in square kilometers.",,
+COAST,"Indicator for lumped coastal basins: 0 = no; 1 = yes. Coastal basins represent
+conglomerates of small coastal watersheds that drain into the ocean between larger
+river basins.",,
+PFAF_ID,"The Pfafstetter code. For general description see literature (e.g., Verdin and Verdin
+1999). The Pfafstetter code uses as many digits as the level it represents. This field
+can be used to cluster or subdivide sub-basins into nested regions. This field is only
+available for levels 1-12 (i.e. not for the ‘Level 0’ layer of the standard format).",,
+DIST_MAIN,"Distance from polygon outlet to the most downstream sink, i.e. the outlet of the
+main river basin along the river network, in kilometers. The most downstream sink
+or outlet is that of the larger basin (to which smaller endorheic sub-basins may be
+virtually connected), i.e. either the outlet at the ocean, or the final sink of a large
+endorheic watershed which forms its own basin. Note that when small endorheic
+basins are lumped with a larger river basin, the virtual linkages are not measured as
+true distances but are calculated as direct (zero distance) connections.",,
+DIST_SINK,"Distance from polygon outlet to the next downstream sink along the river network,
+in kilometers. This distance is measured to the next downstream endorheic sink (if
+there is one) or (if there is none) to the most downstream sink (i.e. the ocean).",,
+HYBAS_ID,Unique basin identifier,,
+NEXT_DOWN,"Hybas_id of the next downstream polygon. This field can be used for navigation
+(up- and downstream) within the river network. The value ‘0’ indicates a polygon
+with no downstream connection. Note that small endorheic sinks may have a
+‘virtual’ connection to an appropriate downstream polygon to allow for topological
+queries in larger river basins where discontinuities should be eliminated (e.g., the
+larger Nile Basin contains smaller endorheic basins that are virtually connected to
+the larger basin). Virtual connections can be identified as they carry a value of ‘2’ in
+the ‘Endo’ field AND a value larger than ‘0’ in the ‘Next_down’ field. Users can
+thus decide whether or not to terminate the routing at endorheic sinks.",,
+ORDER,"Indicator of river order (classical ordering system): order 1 represents the main stem
+river from sink to source; order 2 represents all tributaries that flow into a 1st order
+river; order 3 represents all tributaries that flow into a 2nd order river; etc.; order 0 is
+used for conglomerates of small coastal watersheds.",,
+ENDO,"Indicator for endorheic (inland) basins without surface flow connection to the
+ocean: 0 = not part of an endorheic basin; 1 = part of an endorheic basin; 2 = sink
+(i.e. most downstream polygon) of an endorheic basin.",,
+MAIN_BAS,"Hybas_id of the most downstream sink, i.e. the outlet of the main river basin. This
+field indicates the ID of the most downstream polygon of the river basin and can be
+used to identify the entire river basin that a polygon belongs to, including all
+associated endorheic basins. Note: small endorheic parts are typically lumped (via
+virtual connections) with their corresponding larger basin, while large endorheic
+watersheds can form their own basins",,
+SORT,"Indicator showing the record number (sequence) in which the original polygons are
+stored in the shapefile (i.e. counting upwards from 1 in the original shapefile). The
+original polygons are sorted from downstream to upstream. This field can be used to
+sort the polygons back to their original sequence or to perform topological searches.",,
+NEXT_SINK,"Hybas_id of the next downstream sink. This field indicates either the ID of the next
+downstream endorheic sink polygon (if there is one) or the most downstream
+polygon of the river basin (if there is no endorheic sink in between). This field can
+be used to identify the entire, fully connected watershed that a polygon belongs to.",,
+ID,Unique ID - SIZ or Hydroshed,,
+TYPE,SIZ or Hydroshed,,
+UP_AREA,"total upstream area in square kilometers, calculated from headewaters to polygon location (including the polygon)",,
+geometry,geometry of region,,
+,,,
+,,,
+,,,
+,,,

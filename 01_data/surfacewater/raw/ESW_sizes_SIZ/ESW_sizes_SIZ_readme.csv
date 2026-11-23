@@ -1,0 +1,14 @@
+﻿Data location,/01_data/surfacewater/raw/ESW_sizes_SIZ,,
+Data description,Sizes of Ephemeral Surface Water datasets for all Seasonal Inundation Zones,,
+,,,
+Column Name,Description,Unit or Category,Example
+system:index,GEE system index of object,str,0
+END,Ending date of period,date,2/28/19
+ESW_NPIX,# pixels within ESW,count,522982
+ID,Hydroshed ID,str,Linyanti
+MONTH,Ending month of period,str,2
+NAME,Name of time period,str,2019_JAN_FEB
+PX_AREA,Area covered by one pixel,m2,9.554628535647032
+START,Starting date of period,date,1/1/19
+YEAR,Year of time period,year,2019
+.geo,multipoint coordinate data from GEE,[empty],"{""type"":""MultiPoint"",""coordinates"":[]}"

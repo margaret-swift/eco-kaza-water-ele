@@ -1,0 +1,27 @@
+﻿Data location,/01_data/rainfall/raw/SIZ_Catchments_MAR,,
+Data description,Mean Annual Rainfall (MAR) from SIZ catchments,,
+,,,
+Column Name,Description,Unit or Category,Example
+system:index,GEE System object index,str,0
+mm2019,2019 Mean Annual Rainfall,mm,376.1560557
+mm2020,2020 Mean Annual Rainfall,mm,661.7559065
+mm2021,2021 Mean Annual Rainfall,mm,732.3996543
+mm2022,2022 Mean Annual Rainfall,mm,801.1043958
+mm2023,2023 Mean Annual Rainfall,mm,389.6318542
+mm2024,2024 Mean Annual Rainfall,mm,435.0984228
+mm2025,2025 Mean Annual Rainfall,mm,635.2808545
+name,Catchment Name,str,Zambezi
+.geo,GEE multipoint coordinate data,[empty],"{""type"":""MultiPoint"",""coordinates"":[]}"
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,

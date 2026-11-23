@@ -1,0 +1,10 @@
+﻿Location,/01_data/surfacewater/processed/all_water_utm.rdata,,
+Source,00_cleanGeographic.R,,
+Objects,"esw.utm.df, gsw.utm.df,  ndwi2.utm.df, wi2015.utm.df, mndwi.utm.df,  lc05.utm.df, lc21.utm.df,",,
+Description,Data frames of surface water locations gained from raster data,,
+,,,
+Column Name,Description,Units,Example
+x,UTM x coordinate,m,86000
+y,UTM y coordinate,m,7990000
+recurrence,recurrence frequency,unitless,3.4
+geometry,Geometry data for .sf dataset,"(x,y)","POINT (86000, 7990000)"

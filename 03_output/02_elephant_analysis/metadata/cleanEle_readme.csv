@@ -1,0 +1,25 @@
+﻿Location,/01_data/elephant/processed/elephant.rdata,,
+Object,ele.df; ele.sf,,
+Source,01_cleanEle.R,,
+Description,"Cleaned elephant data within AOI (.df  = no geometry, .sf = geometry)",,
+,,,
+Column Name,Description,Units,Example
+INX,Row index,index,1
+ID,animal ID - sequential,str,1
+BURST,Burst of movement - starts with ID ,str,1001
+LON,Longitude (UTM),m,860000
+LAT,Latitude (UTM),m,7990000
+START.COUNT,Is this the first point in a burst?,bool,TRUE
+ANIMAL_ID,animal ID - original,str,AAABBB
+SEX,elephant sex,str,F
+DATE.TIME,date and time,datetime,2016-02-02  05:00:00
+SEASON,season (wet or dry),str,WET
+DTS.TRUE,time since PREVIOUS point (minutes),minutes,240
+DTS,time since last point (seconds),seconds,14400
+DIST,distance from last point,meters,443
+DTM,time from NEXT point (minutes),minutes,240
+REL.ANGLE,relative angle from last point,radians,-1.4
+SPEED,speed of movement,m/s,0.51
+COUNTRY,country of origin,str,Namibia
+PROVIDER,data provider,str,MEFT
+GEOMETRY,Geometry data for .sf dataset,"(x,y)","POINT (86000, 7990000)"
