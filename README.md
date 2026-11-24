@@ -2,16 +2,19 @@
 
 This repository contains metadata, data, scripts, and output files for the Swift et al 2026 Ecosphere analysis: "Mapping small-scale ephemeral surface water to inform transfrontier conservation planning in southern Africa". 
 
-Folder names are **bolded**. File names are _italicized_
+Folder names are **bolded**. File names are _italicized_. 
 
 ## /01_data
 Data files used in analysis. All data inputs follow the folder structure:
 - **/raw** : raw input data files
 - **/processed** : processed data files created as part of the analysis
+  
+For brevity, file names in **/01_data** are assumed to be in the **/raw** folder unless specified as belonging in the **/processed** folder.
 
 **/aoi**: Area of interest for this study (hand-drawn in GEE). 
-- _AOI.cpg, AOI.dbf, AOI.fix, AOI.prj, AOI.shp, AOI.shx_: AOI boundary
-- _AOI_readme.csv_: metadata for AOI
+- _/AOI.cpg, AOI.dbf, AOI.fix, AOI.prj, AOI.shp, AOI.shx_: AOI boundary
+- _/AOI_readme.csv_: metadata for AOI
+- /**processed**/_aoi_utm.rdata_: AOI in UTM format
 
 **/kaza**: KAZA shapefile and hydroshed/SIZ region shapefiles for GEE scripts.
 - _/KAZA_boundary.shp, KAZA_boundary.cpg, KAZA_boundary.dbf, KAZA_boundary.fix, KAZA_boundary.prj, KAZA_boundary.shx_: KAZA boundary
@@ -21,6 +24,7 @@ Data files used in analysis. All data inputs follow the folder structure:
 **/fences**: veterinary fences in the AOI (provided from https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/1365-2664.14746)
 - _/fences.shp, fences.cpg, fences.dbf, fences.fix, fences.prj, fences.shx_: veterinary fence shapefile
 - _/fences_readme.csv_: metadata for _fences.shp_
+- /**processed**/_fences_utm.rdata_: fence shapefile in UTM format
 
 **/rainfall**: mean annual rainfall for each region within KAZA (from CHIRPS) https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY
 - _/SIZ_Catchments_MAR.csv_: Mean annual ranfall for all seasonal inundation zones in KAZA.
@@ -49,6 +53,7 @@ Data files used in analysis. All data inputs follow the folder structure:
 - _/MWF_sizes_HY_readme.csv_: Metadata for MWF_sizes_HY.
 - _/AOI_rasters_readme.csv_: Metadata for AOI rasters.
 - _/Validation_Data_readme.csv_: Metadata for files in the /Validation_Data subfolder.
+- /**processed**/_all_water_utm.rdata_: all water data in UTM format
 
 **/elephant/**: Elephant GPS collar data. These data are NOT AVAILABLE (elephant GPS data are protected)
 
