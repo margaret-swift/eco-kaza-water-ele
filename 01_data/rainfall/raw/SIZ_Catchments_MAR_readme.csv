@@ -1,6 +1,12 @@
 ﻿Data location,/01_data/rainfall/raw/SIZ_Catchments_MAR,,
 Data description,Mean Annual Rainfall (MAR) from SIZ catchments,,
 ,,,
+All datasets have been exported from GEE and so retain their original alphabetical column order.,,,
+All rainfall MAR data have been aggregated by Hydroshed from CHIRPS data,,,
+CHIRPS Precipitation Daily: Climate Hazards Center InfraRed Precipitation With Station Data (Version 2.0 Final),,,
+https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY,,,
+Climate Hazards Center InfraRed Precipitation with Station data (CHIRPS) is a 30+ year quasi-global rainfall dataset. CHIRPS incorporates 0.05° resolution satellite imagery with in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring.,,,
+,,,
 Column Name,Description,Unit or Category,Example
 system:index,GEE System object index,str,0
 mm2019,2019 Mean Annual Rainfall,mm,376.1560557
@@ -12,16 +18,3 @@ mm2024,2024 Mean Annual Rainfall,mm,435.0984228
 mm2025,2025 Mean Annual Rainfall,mm,635.2808545
 name,Catchment Name,str,Zambezi
 .geo,GEE multipoint coordinate data,[empty],"{""type"":""MultiPoint"",""coordinates"":[]}"
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
-,,,
